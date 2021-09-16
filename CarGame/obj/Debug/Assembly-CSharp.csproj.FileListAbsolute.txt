@@ -1,0 +1,2 @@
+E:\Car Game\CarMovementTesr\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+E:\Car Game\CarMovementTesr\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
