@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CheckPointManager : MonoBehaviour
 {
+    public TimerManager timerManager;
     public Transform target;
+
+    public bool targetAtFinish = true;
+
     public CheckPoint[] checkPoints;
 
-    private int currentCheckPoint = 0;
-    private bool won = false;
+    private uint m_currentCheckPoint = 0;
 
     private void Start()
     {
@@ -25,35 +28,57 @@ public class CheckPointManager : MonoBehaviour
             p.setManager(this);
         }
 
-        setTargetPos();
+        SetTargetPos();
     }
 
     /**
-     * Test if the checkpoint entered was in the correct order.
+     * Test if the checkpoint entered was in the correct order and perform checkpoint logic.
      **/
     public void TestPointEntered(CheckPoint chk)
     {
-        if (won) return;
-
-        if(chk == checkPoints[currentCheckPoint])
+        if(CompareCheckpoint(chk))
         {
-            currentCheckPoint++;
+            m_currentCheckPoint++;
 
             // This is the end
-            if (currentCheckPoint == checkPoints.Length)
+            if (m_currentCheckPoint == checkPoints.Length)
             {
-                Debug.Log("Finish line crossed");
-                won = true;
+                OnWin();
             }
             else
             {
-                setTargetPos();
+                SetTargetPos();
             }
         }
     }
 
-    void setTargetPos()
+    /**
+     * Perform the required logic when the player crosses the finish line
+     **/ 
+    void OnWin()
     {
-        target.position = checkPoints[currentCheckPoint].transform.position;
+        timerManager.SetCanTick(false);
+    }
+    
+    /**
+     * Move the target position to the current checkpoint's location
+     **/ 
+    void SetTargetPos()
+    {
+        target.position = checkPoints[m_currentCheckPoint].transform.position;
+
+        if(!targetAtFinish && m_currentCheckPoint == checkPoints.Length - 1)
+        {
+            target.gameObject.SetActive(false);
+        }
+    }
+
+    /**
+     * Safely compare a given checkpoint to the current checkpoint
+     **/ 
+    bool CompareCheckpoint(CheckPoint chk)
+    {
+        if (m_currentCheckPoint >= checkPoints.Length) return false;
+        return chk == checkPoints[m_currentCheckPoint];
     }
 }
