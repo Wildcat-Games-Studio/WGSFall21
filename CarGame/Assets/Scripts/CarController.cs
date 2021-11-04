@@ -126,8 +126,10 @@ public class CarController: MonoBehaviour
 
                 Vector2 inputRaw = new Vector2(Mathf.Sign(inputMovement.x), Mathf.Sign(inputMovement.y));
 
-                float movementForce = inputMovement.y;
 
+                //float movementForce = CalculateMovementForce(relativeDir, inputRaw);
+                /** Refactored into CalculateMovementForce
+                float movementForce = inputMovement.y;
                 // use correct acceleration based on difference between movement direction and input direction
                 if(relativeDir != inputRaw.y)
                 {
@@ -141,18 +143,22 @@ public class CarController: MonoBehaviour
                 {
                     movementForce *= movementRevAccel;
                 }
-
+                */
                 Debug.DrawRay(worldPoint, forwardDir);
 
                 float relMaxSpeed = relativeDir > 0 ? maxSpeed : maxRevSpeed;
 
                 if (Mathf.Abs(relativeSpeed) < relMaxSpeed)
                 {
+                    /** Moved in here because there's no need for it unless relativespeed < relmaxspeed */
+                    float movementForce = CalculateMovementForce(relativeDir, inputRaw);
                     // Clamp speed
                     body.AddForceAtPosition(forwardDir * movementForce, transform.TransformPoint(movementOrigin));
                 }
 
                 // Turning
+                CalculateTurning(relativeSpeed, relativeDir, inputRaw);
+                /**
                 float turnTorque = inputMovement.x * torquePower;
                 if(!Mathf.Approximately(inputMovement.x, 0) && Mathf.Abs(relativeSpeed) > minTurnSpeed)
                 {
@@ -165,8 +171,10 @@ public class CarController: MonoBehaviour
                 {
                     body.AddTorque(transform.up * -Vector3.Dot(transform.up, body.angularVelocity) * turnCorrectionAccel);
                 }
-
+                */
                 // Keep the car moving in direction of its wheels
+                AlignVehicle(hit, forwardDir, worldPoint, relativeDir);
+                /** Refactored into AlignVehicle
                 Vector3 veloProj = Vector3.ProjectOnPlane(body.velocity, hit.normal);
 
                 Vector3 toForward = Vector3.Project(body.velocity, forwardDir.normalized) - veloProj;
@@ -186,11 +194,23 @@ public class CarController: MonoBehaviour
 
                 // average directions
                 wheelDirection += forwardDir;
+                */
             }
 
         }
+        CheckGrounding(grounded);
 
-        if (grounded)
+        wheelDirection /= 4.0f;
+
+        if(flipping && Vector3.Dot(transform.up, Vector3.down) > 0.8f) //TODO: Check on the ground
+        {
+            body.AddForceAtPosition(Vector3.up * flipForce, transform.TransformPoint(body.centerOfMass + Vector3.right));
+        }
+    }
+
+    void CheckGrounding(bool isGrounded)
+    {
+        if (isGrounded)
         {
             body.drag = groundDrag;
             body.angularDrag = groundAngularDrag;
@@ -201,12 +221,72 @@ public class CarController: MonoBehaviour
             body.angularDrag = 0.05f;
         }
 
-        wheelDirection /= 4.0f;
+    }
 
-        if(flipping && Vector3.Dot(transform.up, Vector3.down) > 0.8f) //TODO: Check on the ground
+    void CalculateTurning(float inRelativeSpeed, float inRelativeDirection, Vector2 inInputRaw)
+    {
+        float turnTorque = inputMovement.x * torquePower;
+        if (!Mathf.Approximately(inputMovement.x, 0) && Mathf.Abs(inRelativeSpeed) > minTurnSpeed)
         {
-            body.AddForceAtPosition(Vector3.up * flipForce, transform.TransformPoint(body.centerOfMass + Vector3.right));
+            if (Vector3.Dot(body.angularVelocity, inRelativeDirection * inInputRaw.x * transform.up) < maxTurnSpeed)
+            {
+                body.AddTorque(transform.up * turnTorque * inRelativeDirection);
+            }
         }
+        else
+        {
+            body.AddTorque(transform.up * -Vector3.Dot(transform.up, body.angularVelocity) * turnCorrectionAccel);
+        }
+    }
+
+
+    float CalculateMovementForce(float inRelativeDir, Vector2 inInputRaw)
+    {
+        // use correct acceleration based on difference between movement direction and input direction
+        if (inRelativeDir != inInputRaw.y)
+        {
+            return inputMovement.y * breakAccel;
+        }
+        else if (inRelativeDir > 0) // backwards
+        {
+            return inputMovement.y * movementAccel;
+        }
+        else
+        {
+            return inputMovement.y * movementRevAccel;
+        }
+    }
+
+    void AlignVehicle(RaycastHit hit, Vector3 forwardDir, Vector3 worldPoint, float relativeDir)
+    {
+        Vector3 veloProj = Vector3.ProjectOnPlane(body.velocity, hit.normal);
+
+        Vector3 toForward = Vector3.Project(body.velocity, forwardDir.normalized) - veloProj;
+
+        /**
+        Debug.DrawRay(worldPoint, Vector3.Project(body.velocity, forwardDir.normalized), Color.green);
+        Debug.DrawRay(worldPoint, veloProj, Color.cyan);
+        Debug.DrawRay(worldPoint + veloProj, toForward, Color.red);
+        */
+        if (drifting && relativeDir > 0)
+        {
+            body.AddForce(toForward * wheelCorrectionDriftAccel);
+        }
+        else
+        {
+            body.AddForce(toForward * wheelCorrectionAccel);
+        }
+
+        // average directions
+        wheelDirection += forwardDir;
+        WheelDebug(worldPoint, forwardDir, veloProj, toForward);
+    }
+
+    void WheelDebug(Vector3 worldPoint, Vector3 forwardDir, Vector3 veloProj, Vector3 toForward)
+    {
+        Debug.DrawRay(worldPoint, Vector3.Project(body.velocity, forwardDir.normalized), Color.green);
+        Debug.DrawRay(worldPoint, veloProj, Color.cyan);
+        Debug.DrawRay(worldPoint + veloProj, toForward, Color.red);
     }
 
     void OnDrawGizmos()
