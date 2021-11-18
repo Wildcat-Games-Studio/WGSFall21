@@ -52,6 +52,15 @@ public class CheckPointManager : MonoBehaviour
         }
     }
 
+    public bool GetLastCheckPoint(ref Vector3 o_pos)
+    {
+        if (m_currentCheckPoint >= checkPoints.Length || m_currentCheckPoint == 0) return false;
+
+        o_pos = checkPoints[m_currentCheckPoint - 1].transform.position;
+
+        return true;
+    }
+
     /**
      * Perform the required logic when the player crosses the finish line
      **/ 

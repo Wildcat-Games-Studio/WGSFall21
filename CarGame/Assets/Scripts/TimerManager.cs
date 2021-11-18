@@ -10,7 +10,7 @@ public class TimerManager : MonoBehaviour
     float m_milliSeconds;
     uint m_seconds;
     uint m_minutes;
-    bool m_isActive = true;
+    bool m_isActive = false;
 
     public void SetCanTick(bool active)
     {
@@ -32,6 +32,7 @@ public class TimerManager : MonoBehaviour
         }
     }
 
+
     void Tick()
     {
         m_milliSeconds += Time.deltaTime;
@@ -45,13 +46,13 @@ public class TimerManager : MonoBehaviour
 
     void UpdateTime()
     {
-        if(m_milliSeconds >= 1.0f)
+        if (m_milliSeconds >= 1.0f)
         {
             m_milliSeconds -= 1.0f;
 
             m_seconds += 1;
 
-            if(m_seconds >= 60)
+            if (m_seconds >= 60)
             {
                 m_seconds -= 60;
                 m_minutes += 1;
