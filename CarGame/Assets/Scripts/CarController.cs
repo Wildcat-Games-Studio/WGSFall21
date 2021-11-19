@@ -10,6 +10,8 @@ public class CarController: MonoBehaviour
     // Drag         0.2
     // Angular Drag 0.3
 
+    public CheckPointManager checkPointManager;
+
     public float maxSpeed = 50;
     public float maxRevSpeed = 25;
     public float maxTurnSpeed = 2.5f;
@@ -51,8 +53,19 @@ public class CarController: MonoBehaviour
     private bool drifting;
     private bool flipping;
 
+    private Vector3 m_startPos;
+
+    private bool m_canMove = false;
+
+    public void SetCanMove(bool move)
+    {
+        m_canMove = move;
+    }
+
     private void Start()
     {
+        m_startPos = transform.position;
+
         body = GetComponent<Rigidbody>();
 
         body.centerOfMass = centerOfMass;
@@ -89,8 +102,26 @@ public class CarController: MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.CompareTag("Respawn"))
+        {
+            Vector3 respawnPos = new Vector3();
+            if(checkPointManager.GetLastCheckPoint(ref respawnPos))
+            {
+                transform.position = respawnPos + Vector3.up * 1.5f;
+            }
+            else
+            {
+                transform.position = m_startPos;
+            }
+        }
+    }
+
     private void FixedUpdate()
     {
+        if (!m_canMove) return;
+
         // spring: F = -kx
 
         float x = 0.0f;

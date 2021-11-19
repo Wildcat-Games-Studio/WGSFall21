@@ -303,6 +303,34 @@ PrefabInstance:
       propertyPath: wheelTransforms.Array.data[3]
       value: 
       objectReference: {fileID: 4219214019892062622}
+    - target: {fileID: 4060595848839690514, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: centerOfMass.y
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060595848839690514, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: movementOrigin.y
+      value: -0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060595848839690514, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: centerOfMass.z
+      value: -0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060595848839690515, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: m_Size.z
+      value: 4.0439973
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060595848839690515, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: m_Center.z
+      value: -0.31534028
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060595848839690515, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9501929
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060595848839690515, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: m_Center.y
+      value: 0.9381094
+      objectReference: {fileID: 0}
     - target: {fileID: 4060595848839690517, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02
