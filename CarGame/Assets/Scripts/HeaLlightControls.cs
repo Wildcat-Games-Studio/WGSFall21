@@ -10,7 +10,6 @@ public class HeaLlightControls : MonoBehaviour
     void Start()
     {
         headLight = gameObject.GetComponent<Light>();
-        print(headLight);
     }
 
     // Update is called once per frame
