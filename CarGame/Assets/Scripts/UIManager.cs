@@ -1,16 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public Canvas MainMenuCanvas;
     public Canvas OptionsMenuCanvas;
+    public Canvas LevelSelectionCanvas;
 
-    public void BeginBtnClicked()
+    public void SelectLevelBtnClicked()
     {
-        SceneManager.LoadScene(1);
+        if (MainMenuCanvas == null)
+        {
+            Debug.Log("MainMenuCanvas is NULL. Cannot disable.");
+            return;
+        }
+        if (LevelSelectionCanvas == null)
+        {
+            Debug.Log("LevelSelectionCanvas is NULL. Cannot display.");
+            return;
+        }
+
+        MainMenuCanvas.enabled = !MainMenuCanvas.enabled;
+        LevelSelectionCanvas.enabled = !LevelSelectionCanvas.enabled;
     }
 
     public void ToggleOptionsMenu()
