@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class CheckPointManager : MonoBehaviour
 {
-    public TimerManager timerManager;
-    public Transform target;
+    public CheckPoint target;
 
     public bool targetAtFinish = true;
 
-    public CheckPoint[] checkPoints;
+    public delegate void OnWin();
+    public OnWin winFunc;
 
+    public Transform[] checkPoints;
     private uint m_currentCheckPoint = 0;
 
     private void Start()
@@ -18,32 +19,28 @@ public class CheckPointManager : MonoBehaviour
         // Select checkpoints automaticaly
         if(checkPoints.Length == 0)
         {
-            checkPoints = GetComponentsInChildren<CheckPoint>();
-
-            if (checkPoints.Length == 0) Debug.LogError("No children of CheckPointManager have a checkpoint component");
+            checkPoints = GetComponentsInChildren<Transform>();
+            if (checkPoints.Length == 0) Debug.LogError("No children of CheckPointManager and checkpoints not set.");
+            m_currentCheckPoint = 1;
         }
 
-        foreach (CheckPoint p in checkPoints)
-        {
-            p.setManager(this);
-        }
-
+        target.setManager(this);
         SetTargetPos();
     }
 
     /**
      * Test if the checkpoint entered was in the correct order and perform checkpoint logic.
      **/
-    public void TestPointEntered(CheckPoint chk)
+    public void OnPointEnter(CheckPoint chk)
     {
-        if(CompareCheckpoint(chk))
+        if(m_currentCheckPoint < checkPoints.Length)
         {
             m_currentCheckPoint++;
 
             // This is the end
             if (m_currentCheckPoint == checkPoints.Length)
             {
-                OnWin();
+                winFunc?.Invoke();
             }
             else
             {
@@ -60,34 +57,17 @@ public class CheckPointManager : MonoBehaviour
 
         return true;
     }
-
-    /**
-     * Perform the required logic when the player crosses the finish line
-     **/ 
-    void OnWin()
-    {
-        timerManager.SetCanTick(false);
-    }
     
     /**
      * Move the target position to the current checkpoint's location
      **/ 
     void SetTargetPos()
     {
-        target.position = checkPoints[m_currentCheckPoint].transform.position;
+        target.transform.position = checkPoints[m_currentCheckPoint].position;
 
-        if(!targetAtFinish && m_currentCheckPoint == checkPoints.Length - 1)
-        {
-            target.gameObject.SetActive(false);
-        }
-    }
-
-    /**
-     * Safely compare a given checkpoint to the current checkpoint
-     **/ 
-    bool CompareCheckpoint(CheckPoint chk)
-    {
-        if (m_currentCheckPoint >= checkPoints.Length) return false;
-        return chk == checkPoints[m_currentCheckPoint];
+        //if(!targetAtFinish && m_currentCheckPoint == checkPoints.Length - 1)
+        //{
+        //    target.gameObject.SetActive(false);
+        //}
     }
 }

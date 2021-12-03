@@ -10,7 +10,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            m_manager.TestPointEntered(this);
+            m_manager.OnPointEnter(this);
         }
     }
 
@@ -18,11 +18,4 @@ public class CheckPoint : MonoBehaviour
     {
         this.m_manager = manager;
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(transform.position, 1.0f);
-    }
-
 }

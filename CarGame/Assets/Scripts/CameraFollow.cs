@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform target;
+    public float followSpeed;
 
     public float pitch;
     public float distance;
@@ -27,6 +28,6 @@ public class CameraFollow : MonoBehaviour
 
         // apply new transforms
         transform.rotation = rotation;
-        transform.position = target.position - fromTarget * distance;
+        transform.position = Vector3.Lerp(transform.position, target.position - fromTarget * distance, Time.deltaTime * followSpeed);
     }
 }

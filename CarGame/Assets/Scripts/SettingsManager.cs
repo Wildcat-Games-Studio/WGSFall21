@@ -88,15 +88,17 @@ public class SettingsManager : MonoBehaviour
     // reads a JSON from Application persistent Data Path and enters it into gameSettings
     public void LoadSettings()
     {
-        gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
-        audioVolumeSlider.value = gameSettings.musicVolume;
-        antialiasingDropdown.value = gameSettings.antialiasing;
-        vSyncDropdown.value = gameSettings.Vsync;
-        resolutionDropdown.value = gameSettings.resolutionIndex;
-        fullscreenToggle.isOn = gameSettings.fullscreen;
+        if(File.Exists(Application.persistentDataPath + "/gamesettings.json"))
+        {
+            gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
+            audioVolumeSlider.value = gameSettings.musicVolume;
+            antialiasingDropdown.value = gameSettings.antialiasing;
+            vSyncDropdown.value = gameSettings.Vsync;
+            resolutionDropdown.value = gameSettings.resolutionIndex;
+            fullscreenToggle.isOn = gameSettings.fullscreen;
 
-        resolutionDropdown.RefreshShownValue();
-
+            resolutionDropdown.RefreshShownValue();
+        }
     }
     // Start is called before the first frame update
     void Start()
