@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 4060595848839690517}
   - component: {fileID: 4060595848839690516}
   - component: {fileID: 4060595848839690515}
+  - component: {fileID: 5112234443555404975}
   - component: {fileID: 4060595848839690514}
+  - component: {fileID: 8704511975543466596}
+  - component: {fileID: 4186056013094084740}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -47,7 +50,7 @@ Rigidbody:
   m_AngularDrag: 0.3
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!65 &4060595848839690515
@@ -61,8 +64,22 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.3340745, y: 1.1611798, z: 5.074106}
-  m_Center: {x: -0.23000002, y: 1.0714213, z: -0.22698355}
+  m_Size: {x: 2.3340745, y: 0.86470294, z: 4.159748}
+  m_Center: {x: 0, y: 0.92318285, z: -0.15874481}
+--- !u!136 &5112234443555404975
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060595848839690513}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.40422487
+  m_Height: 2.58
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.71, z: 2.1}
 --- !u!114 &4060595848839690514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,36 +92,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14af764d1fcd89479a8286bc18e123b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: ff66bd2442fce5a4e934d530702ce90a, type: 2}
   checkPointManager: {fileID: 0}
-  maxSpeed: 50
-  maxRevSpeed: 25
-  maxTurnSpeed: 2.5
-  movementAccel: 50
-  movementRevAccel: 30
-  breakAccel: 100
-  torquePower: 50
-  wheelCorrectionAccel: 150
-  wheelCorrectionDriftAccel: 15
-  turnCorrectionAccel: 50
-  minTurnSpeed: 1
-  targetDistFromGround: 0.5
-  invDampingCoefficient: 0.9
-  springCoefficient: 100
-  groundDrag: 0.25
-  groundAngularDrag: 3
-  centerOfMass: {x: 0, y: 0, z: -0.45}
-  movementOrigin: {x: 0, y: -0.24, z: 0.59}
-  flipForce: 80
-  suspensionPoints:
-  - {x: -1.35, y: 0.55, z: 1.18}
-  - {x: 0.86, y: 0.5, z: 1.18}
-  - {x: -1.38, y: 0.55, z: -1.72}
-  - {x: 0.86, y: 0.5, z: -1.72}
+  suspension: {fileID: 8704511975543466596}
+--- !u!114 &8704511975543466596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060595848839690513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a552d342688b67c42a9f30abb82bbdd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: ff66bd2442fce5a4e934d530702ce90a, type: 2}
   wheelTransforms:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &4186056013094084740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060595848839690513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc20e4efdbaf98048bb3e435caab3bcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distError: 5
+  speed: 50
+  turnSlerp: 10
+  veloLerp: 3
+  pointHolder: {fileID: 0}
+  points: []
+  subdiv: 0
 --- !u!1001 &9107534972997758981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118,15 +145,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4734670627429257841, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.2674017
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4734670627429257841, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.95
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4734670627429257841, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.238629
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4734670627429257841, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
       propertyPath: m_LocalRotation.x

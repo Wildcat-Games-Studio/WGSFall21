@@ -1,14 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
+using System.Linq;
+
 
 public class RaceManager : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI countdownText;
+
+    public GameObject endPanel;
+
     public CheckPointManager checkPointManager;
     public CarController carController;
+    public PointFollow carFollow;
 
     [Min(0)]
     public int countdownTime;
@@ -31,6 +39,10 @@ public class RaceManager : MonoBehaviour
 
         checkPointManager.winFunc = OnWin;
 
+        endPanel.SetActive(false);
+        carController.enabled = false;
+        carFollow.enabled = false;
+
         UpdateCountDown(countdownTime);
     }
 
@@ -45,7 +57,8 @@ public class RaceManager : MonoBehaviour
                     if(m_seconds > countdownTime)
                     {
                         m_seconds = 0.0f;
-                        carController.SetCanMove(true);
+                        m_last_seconds = m_seconds;
+                        carController.enabled = true;
                         UpdateCountDown("GO");
 
                         m_state = RaceState.Running;
@@ -54,6 +67,7 @@ public class RaceManager : MonoBehaviour
 
                     if ((int)m_last_seconds != (int)m_seconds)
                     {
+                        m_last_seconds = m_seconds;
                         UpdateCountDown(countdownTime - (int)m_seconds);
                     }
 
@@ -65,8 +79,12 @@ public class RaceManager : MonoBehaviour
                         countdownClear = true;
                         UpdateCountDown("");
                     }
-
-                    UpdateTimerText();
+                    
+                    if(m_seconds - m_last_seconds >= 0.01f)
+                    {
+                        m_last_seconds = m_seconds;
+                        UpdateTimerText();
+                    }
                 }
                 break;
             case RaceState.Ended:
@@ -75,8 +93,6 @@ public class RaceManager : MonoBehaviour
                 }
                 break;
         }
-
-        m_last_seconds = m_seconds;
     }
 
     void UpdateCountDown(int value)
@@ -100,6 +116,52 @@ public class RaceManager : MonoBehaviour
 
     private void OnWin()
     {
-        Debug.Log("Won!!");
+        m_state = RaceState.Ended;
+        carFollow.enabled = true;
+        carController.enabled = false;
+
+        SaveTime();
+
+        endPanel.SetActive(true);
+    }
+
+    [Serializable]
+    struct RaceTime
+    {
+        public float seconds;
+    }
+
+    [Serializable]
+    class RaceTimeCollection
+    {
+        public RaceTime[] Items;
+    }
+
+    public void SaveTime()
+    {
+        List<RaceTime> loadListData;
+
+        string jsonToLoad = Application.persistentDataPath + "/lv1_score.json";
+        if(File.Exists(jsonToLoad))
+        {
+            RaceTimeCollection tmp_collection = JsonUtility.FromJson<RaceTimeCollection>(jsonToLoad);
+            RaceTime[] _tempLoadListData = tmp_collection.Items;
+            loadListData = _tempLoadListData.ToList();
+        }
+        else
+        {
+            loadListData = new List<RaceTime>();
+        }
+
+        RaceTime t = new RaceTime();
+        t.seconds = m_seconds;
+
+        loadListData.Add(t);
+
+        RaceTimeCollection collection = new RaceTimeCollection();
+        collection.Items = loadListData.ToArray();
+        string jsonData = JsonUtility.ToJson(collection);
+
+        File.WriteAllText(jsonToLoad, jsonData);
     }
 }

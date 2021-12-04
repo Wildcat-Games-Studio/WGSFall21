@@ -19,7 +19,7 @@ public class CheckPointManager : MonoBehaviour
         // Select checkpoints automaticaly
         if(checkPoints.Length == 0)
         {
-            checkPoints = GetComponentsInChildren<Transform>();
+            checkPoints = GetComponentsInChildren<Transform>(false);
             if (checkPoints.Length == 0) Debug.LogError("No children of CheckPointManager and checkpoints not set.");
             m_currentCheckPoint = 1;
         }
@@ -41,6 +41,7 @@ public class CheckPointManager : MonoBehaviour
             if (m_currentCheckPoint == checkPoints.Length)
             {
                 winFunc?.Invoke();
+                target.gameObject.SetActive(false);
             }
             else
             {

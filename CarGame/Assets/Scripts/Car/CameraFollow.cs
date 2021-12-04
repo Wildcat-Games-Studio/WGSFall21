@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
         up.Normalize();
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         // calculate yaw
         Vector3 targetDir = Vector3.ProjectOnPlane(target.forward, up).normalized;
@@ -28,6 +28,6 @@ public class CameraFollow : MonoBehaviour
 
         // apply new transforms
         transform.rotation = rotation;
-        transform.position = Vector3.Lerp(transform.position, target.position - fromTarget * distance, Time.deltaTime * followSpeed);
+        transform.position = Vector3.Lerp(transform.position, target.position - fromTarget * distance, Time.fixedDeltaTime * followSpeed);
     }
 }

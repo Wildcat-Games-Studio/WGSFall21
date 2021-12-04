@@ -384,7 +384,64 @@ PrefabInstance:
       propertyPath: m_DrawHalo
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[4]
+      value: 
+      objectReference: {fileID: 4219214019688800577}
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[5]
+      value: 
+      objectReference: {fileID: 4219214018179613206}
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[6]
+      value: 
+      objectReference: {fileID: 4219214019096003594}
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[7]
+      value: 
+      objectReference: {fileID: 4219214019892062622}
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[0]
+      value: 
+      objectReference: {fileID: 4219214019688800577}
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[1]
+      value: 
+      objectReference: {fileID: 4219214018179613206}
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[2]
+      value: 
+      objectReference: {fileID: 4219214019096003594}
+    - target: {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[3]
+      value: 
+      objectReference: {fileID: 4219214019892062622}
+    - target: {fileID: 8704511975543466596, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704511975543466596, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[0]
+      value: 
+      objectReference: {fileID: 4219214019688800577}
+    - target: {fileID: 8704511975543466596, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[1]
+      value: 
+      objectReference: {fileID: 4219214018179613206}
+    - target: {fileID: 8704511975543466596, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[2]
+      value: 
+      objectReference: {fileID: 4219214019096003594}
+    - target: {fileID: 8704511975543466596, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+      propertyPath: wheelTransforms.Array.data[3]
+      value: 
+      objectReference: {fileID: 4219214019892062622}
+    m_RemovedComponents:
+    - {fileID: 7473717716608896912, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
 --- !u!4 &5307495279140014406 stripped
 Transform:
