@@ -2,20 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
 using System.IO;
 
 public class SettingsManager : MonoBehaviour
 {
     public Toggle fullscreenToggle;
-    public Dropdown resolutionDropdown;
-    public Dropdown textureQualityDropdown;
-    public Dropdown antialiasingDropdown;
-    public Dropdown vSyncDropdown;
+    public TMP_Dropdown resolutionDropdown;
+    public TMP_Dropdown textureQualityDropdown;
+    public TMP_Dropdown antialiasingDropdown;
+    public TMP_Dropdown vSyncDropdown;
     public Slider audioVolumeSlider;
     public Button applyButton;
-    public Canvas canvasOptions;
-    public Button exitGame;
 
     public AudioSource audioSource;
     public Resolution[] resolutions;
@@ -32,13 +31,12 @@ public class SettingsManager : MonoBehaviour
         vSyncDropdown.onValueChanged.AddListener(delegate { OnVSyncChange(); });
         audioVolumeSlider.onValueChanged.AddListener(delegate { OnAudioVolumeChange(); });
         applyButton.onClick.AddListener(delegate { OnApplyButton(); });
-        exitGame.onClick.AddListener(delegate { OnExitGame(); });
 
         // gets the resolutions for your computer
         resolutions = Screen.resolutions;
         foreach(Resolution resolution in resolutions)
         {
-            resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
+            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(resolution.ToString()));
         }
         // loads last applyed settings
         LoadSettings();
@@ -68,7 +66,11 @@ public class SettingsManager : MonoBehaviour
     }
     public void OnAudioVolumeChange() // audio slider event handeler
     {
-       audioSource.volume = gameSettings.musicVolume = audioVolumeSlider.value;
+        if(audioSource != null)
+        {
+           audioSource.volume = gameSettings.musicVolume = audioVolumeSlider.value;
+
+        }
     }
     public void OnApplyButton() // apply button event handeler
     {
@@ -98,23 +100,6 @@ public class SettingsManager : MonoBehaviour
             fullscreenToggle.isOn = gameSettings.fullscreen;
 
             resolutionDropdown.RefreshShownValue();
-        }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown("escape") && canvasOptions.enabled == false)
-        {
-            canvasOptions.enabled = true;
-        }else if (Input.GetKeyDown("escape") && canvasOptions.enabled == true)
-        {
-            canvasOptions.enabled = false;
         }
     }
 }

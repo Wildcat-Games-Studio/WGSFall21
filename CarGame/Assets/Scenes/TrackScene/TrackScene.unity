@@ -335,7 +335,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &254125118
 GameObject:
@@ -461,7 +461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &399198341
 GameObject:
@@ -1777,6 +1777,7 @@ MonoBehaviour:
   checkPointManager: {fileID: 506049012}
   carController: {fileID: 1064534468}
   carFollow: {fileID: 1675561280}
+  lapTeleporter: {fileID: 0}
   countdownTime: 3
 --- !u!4 &1501174323
 Transform:
