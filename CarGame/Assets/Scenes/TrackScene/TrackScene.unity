@@ -2123,14 +2123,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5307495279140014407, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
-      propertyPath: m_AngularDrag
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307495279140014407, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
-      propertyPath: m_Drag
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 5469053836614930647, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
       propertyPath: points.Array.size
       value: 40
@@ -2295,18 +2287,6 @@ PrefabInstance:
       propertyPath: points.Array.data[39]
       value: 
       objectReference: {fileID: 1994378606}
-    - target: {fileID: 7797084297023166543, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
-      propertyPath: followSpeed
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 7797084297023166543, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
-      propertyPath: pitch
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7797084297023166543, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
-      propertyPath: yaw
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
 --- !u!1 &1721456027

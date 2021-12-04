@@ -14,6 +14,8 @@ public class CheckPointManager : MonoBehaviour
     public Transform[] checkPoints;
     private uint m_currentCheckPoint = 0;
 
+    private bool m_parentedPoints;
+
     private void Start()
     {
         // Select checkpoints automaticaly
@@ -22,6 +24,11 @@ public class CheckPointManager : MonoBehaviour
             checkPoints = GetComponentsInChildren<Transform>(false);
             if (checkPoints.Length == 0) Debug.LogError("No children of CheckPointManager and checkpoints not set.");
             m_currentCheckPoint = 1;
+            m_parentedPoints = true;
+        }
+        else
+        {
+            m_parentedPoints = false;
         }
 
         target.setManager(this);
@@ -52,7 +59,8 @@ public class CheckPointManager : MonoBehaviour
 
     public bool GetLastCheckPoint(ref Vector3 o_pos)
     {
-        if (m_currentCheckPoint >= checkPoints.Length || m_currentCheckPoint == 0) return false;
+        if (m_currentCheckPoint >= checkPoints.Length || m_currentCheckPoint == 0 ||
+            m_parentedPoints && m_currentCheckPoint == 1) return false;
 
         o_pos = checkPoints[m_currentCheckPoint - 1].transform.position;
 
