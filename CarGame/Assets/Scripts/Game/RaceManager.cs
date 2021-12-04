@@ -211,7 +211,7 @@ public class RaceManager : MonoBehaviour
     {
         List<RaceTime> loadListData;
 
-        string path = Application.persistentDataPath + "/" + levelName + "_score.json";
+        string path = Application.persistentDataPath + "/Scores/" + levelName + "_score.json";
         if (File.Exists(path))
         {
             string jsonToLoad = File.ReadAllText(path);
@@ -230,7 +230,13 @@ public class RaceManager : MonoBehaviour
     /** return slot that time was saved to, or -1 if value was not saved **/
     private int SaveTime()
     {
-        string path = Application.persistentDataPath + "/" + levelName + "_score.json";
+        string directory = Application.persistentDataPath + "/Scores";
+        if (!Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        string path = directory  + "/" + levelName + "_score.json";
         List<RaceTime> loadListData = LoadTimes();
 
         RaceTime t = new RaceTime();
