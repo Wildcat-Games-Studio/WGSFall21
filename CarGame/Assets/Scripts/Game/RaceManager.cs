@@ -13,6 +13,8 @@ public class RaceManager : MonoBehaviour
     public TextMeshProUGUI countdownText;
 
     public GameObject endPanel;
+    public TextMeshProUGUI endTimeText;
+    public TextMeshProUGUI[] leaderBoard;
 
     public CheckPointManager checkPointManager;
     public CarController carController;
@@ -60,6 +62,7 @@ public class RaceManager : MonoBehaviour
                         m_last_seconds = m_seconds;
                         carController.enabled = true;
                         UpdateCountDown("GO");
+                        countdownText.color = Color.green;
 
                         m_state = RaceState.Running;
                         break;
@@ -105,13 +108,18 @@ public class RaceManager : MonoBehaviour
         countdownText.text = string.Format(text);
     }
 
+    string FormatSecondsToTime(float in_seconds)
+    {
+        int minutes = (int)(in_seconds / 60.0f);
+        int seconds = (int)in_seconds % 60;
+        int milli = (int)((in_seconds - (int)in_seconds) * 100.0f);
+
+        return string.Format("{0}'{1:D2}\"{2:D2}", minutes, seconds, milli);
+    }
+
     void UpdateTimerText()
     {
-        int minutes = (int)(m_seconds / 60.0f);
-        int seconds = (int)m_seconds % 60;
-        int milli = (int)((m_seconds - (int)m_seconds) * 100.0f);
-
-        timerText.text = string.Format("{0}'{1:D2}\"{2:D2}", minutes, seconds, milli);
+        timerText.text = FormatSecondsToTime(m_seconds);
     }
 
     private void OnWin()
@@ -120,15 +128,38 @@ public class RaceManager : MonoBehaviour
         carFollow.enabled = true;
         carController.enabled = false;
 
-        SaveTime();
+        timerText.text = string.Empty;
+        endTimeText.text = FormatSecondsToTime(m_seconds);
+
+        int slot = SaveTime();
+
+        List<RaceTime> scoreBoard = LoadTimes();
+        int iter = Math.Min(scoreBoard.Count, leaderBoard.Length);
+        for(int i = 0; i < iter; i++)
+        {
+            leaderBoard[i].text = FormatSecondsToTime(scoreBoard[i].seconds);
+            if(i == slot)
+            {
+                leaderBoard[i].color = Color.green;
+            }
+        }
 
         endPanel.SetActive(true);
     }
 
     [Serializable]
-    struct RaceTime
+    class RaceTime : IComparable
     {
         public float seconds;
+
+        public int CompareTo(object obj)
+        {
+            RaceTime otherTemperature = obj as RaceTime;
+            if (otherTemperature != null)
+                return this.seconds.CompareTo(otherTemperature.seconds);
+            else
+                throw new ArgumentException("Object is not a RaceTime");
+        }
     }
 
     [Serializable]
@@ -137,13 +168,14 @@ public class RaceManager : MonoBehaviour
         public RaceTime[] Items;
     }
 
-    public void SaveTime()
+    private List<RaceTime> LoadTimes()
     {
         List<RaceTime> loadListData;
 
-        string jsonToLoad = Application.persistentDataPath + "/lv1_score.json";
-        if(File.Exists(jsonToLoad))
+        string path = Application.persistentDataPath + "/lv1_score.json";
+        if (File.Exists(path))
         {
+            string jsonToLoad = File.ReadAllText(path);
             RaceTimeCollection tmp_collection = JsonUtility.FromJson<RaceTimeCollection>(jsonToLoad);
             RaceTime[] _tempLoadListData = tmp_collection.Items;
             loadListData = _tempLoadListData.ToList();
@@ -153,15 +185,44 @@ public class RaceManager : MonoBehaviour
             loadListData = new List<RaceTime>();
         }
 
+        return loadListData;
+    }
+
+    /** return slot that time was saved to, or -1 if value was not saved **/
+    private int SaveTime()
+    {
+        string path = Application.persistentDataPath + "/lv1_score.json";
+        List<RaceTime> loadListData = LoadTimes();
+
         RaceTime t = new RaceTime();
         t.seconds = m_seconds;
 
         loadListData.Add(t);
 
+        loadListData.Sort();
+
+        if(loadListData.Count >= 6)
+        {
+            loadListData.RemoveRange(6, loadListData.Count - 6);
+        }
+
+        int res = -1;
+
+        for(int i = 0; i < loadListData.Count; i++)
+        {
+            if(Mathf.Approximately(loadListData[i].seconds, t.seconds))
+            {
+                res = i;
+                break;
+            }
+        }
+
         RaceTimeCollection collection = new RaceTimeCollection();
         collection.Items = loadListData.ToArray();
         string jsonData = JsonUtility.ToJson(collection);
 
-        File.WriteAllText(jsonToLoad, jsonData);
+        File.WriteAllText(path, jsonData);
+
+        return res;
     }
 }
