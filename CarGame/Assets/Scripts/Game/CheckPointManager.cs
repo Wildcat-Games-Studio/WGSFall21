@@ -38,7 +38,7 @@ public class CheckPointManager : MonoBehaviour
     /**
      * Test if the checkpoint entered was in the correct order and perform checkpoint logic.
      **/
-    public void OnPointEnter(CheckPoint chk)
+    public void OnPointEnter()
     {
         if(m_currentCheckPoint < checkPoints.Length)
         {

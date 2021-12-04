@@ -81,7 +81,6 @@ public class PointFollow : MonoBehaviour
     bool InRangeOfTarget()
     {
         float sqrDst = (points[m_currentPoint].position - transform.position).sqrMagnitude;
-
         return sqrDst < distError * distError;
     }
 

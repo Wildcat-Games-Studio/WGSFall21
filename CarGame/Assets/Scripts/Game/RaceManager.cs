@@ -9,6 +9,8 @@ using System.Linq;
 
 public class RaceManager : MonoBehaviour
 {
+    public string levelName;
+
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI countdownText;
 
@@ -172,7 +174,7 @@ public class RaceManager : MonoBehaviour
     {
         List<RaceTime> loadListData;
 
-        string path = Application.persistentDataPath + "/lv1_score.json";
+        string path = Application.persistentDataPath + "/" + levelName + "_score.json";
         if (File.Exists(path))
         {
             string jsonToLoad = File.ReadAllText(path);
@@ -191,7 +193,7 @@ public class RaceManager : MonoBehaviour
     /** return slot that time was saved to, or -1 if value was not saved **/
     private int SaveTime()
     {
-        string path = Application.persistentDataPath + "/lv1_score.json";
+        string path = Application.persistentDataPath + "/" + levelName + "_score.json";
         List<RaceTime> loadListData = LoadTimes();
 
         RaceTime t = new RaceTime();

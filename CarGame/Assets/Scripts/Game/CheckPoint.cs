@@ -10,7 +10,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            m_manager.OnPointEnter(this);
+            m_manager.OnPointEnter();
         }
     }
 
