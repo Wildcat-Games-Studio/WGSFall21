@@ -114,9 +114,7 @@ MonoBehaviour:
   speed: 50
   turnSlerp: 10
   veloLerp: 3
-  pointHolder: {fileID: 0}
   points: []
-  subdiv: 0
 --- !u!1001 &9107534972997758981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,9 +122,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4060595848839690517}
     m_Modifications:
+    - target: {fileID: 1411702744581801669, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703205535016249478, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3690549030521762674, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
       propertyPath: m_DrawHalo
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764181241551000074, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4734670627429257841, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -176,9 +186,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeLorean
       objectReference: {fileID: 0}
+    - target: {fileID: 5908653463360399646, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 74d066be204a2cc44b1e507e90d9966c, type: 2}
+    - target: {fileID: 5908653463360399646, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
+      propertyPath: m_Materials.Array.data[7]
+      value: 
+      objectReference: {fileID: 2100000, guid: 74d066be204a2cc44b1e507e90d9966c, type: 2}
+    - target: {fileID: 5908653463360399646, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
+      propertyPath: m_Materials.Array.data[6]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0de7999425229734e8374c49c067c960, type: 2}
+    - target: {fileID: 6376803174331694086, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7297747428931589759, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
       propertyPath: m_DrawHalo
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370856572584490051, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5882353
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c9a9abb4a7a2fb40888afac3482bc5c, type: 3}

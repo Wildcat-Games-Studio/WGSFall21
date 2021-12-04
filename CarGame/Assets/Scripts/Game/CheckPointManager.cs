@@ -57,12 +57,13 @@ public class CheckPointManager : MonoBehaviour
         }
     }
 
-    public bool GetLastCheckPoint(ref Vector3 o_pos)
+    public bool GetLastCheckPoint(ref Vector3 o_pos, ref Quaternion o_rot)
     {
         if (m_currentCheckPoint >= checkPoints.Length || m_currentCheckPoint == 0 ||
             m_parentedPoints && m_currentCheckPoint == 1) return false;
 
         o_pos = checkPoints[m_currentCheckPoint - 1].transform.position;
+        o_rot = checkPoints[m_currentCheckPoint - 1].transform.rotation;
 
         return true;
     }

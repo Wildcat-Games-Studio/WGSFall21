@@ -21,6 +21,7 @@ public class CarController: MonoBehaviour
     private bool flipping;
 
     private Vector3 m_startPos;
+    private Quaternion m_startRot;
 
     public void Pause(bool pause)
     {
@@ -28,6 +29,7 @@ public class CarController: MonoBehaviour
     private void Start()
     {
         m_startPos = transform.position;
+        m_startRot = transform.rotation;
 
         body = GetComponent<Rigidbody>();
 
@@ -45,18 +47,21 @@ public class CarController: MonoBehaviour
         flipping = Input.GetKey(KeyCode.Space);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.collider.CompareTag("Respawn"))
+        if(other.CompareTag("Respawn"))
         {
             Vector3 respawnPos = new Vector3();
-            if(checkPointManager.GetLastCheckPoint(ref respawnPos))
+            Quaternion respawnRot = new Quaternion();
+            if(checkPointManager.GetLastCheckPoint(ref respawnPos, ref respawnRot))
             {
                 transform.position = respawnPos + Vector3.up * 1.5f;
+                transform.rotation = respawnRot;
             }
             else
             {
                 transform.position = m_startPos;
+                transform.rotation = m_startRot;
             }
         }
     }
@@ -64,7 +69,7 @@ public class CarController: MonoBehaviour
     private void FixedUpdate()
     {
         CheckGrounding(suspension.WheelsOnGround > 0);
-        if (flipping && Vector3.Dot(transform.up, Vector3.down) > 0.8f) //TODO: Check on the ground
+        if (flipping)// && Vector3.Dot(transform.up, Vector3.down) > 0.0f) //TODO: Check on the ground
         {
             body.AddForceAtPosition(Vector3.up * stats.flipForce, transform.TransformPoint(body.centerOfMass + Vector3.right));
         }

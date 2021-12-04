@@ -30,7 +30,7 @@ ModelImporter:
       name: Windows
     second: {fileID: 2100000, guid: 2c0d7c98bab28124580f47e5800d0106, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
