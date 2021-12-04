@@ -22,6 +22,8 @@ public class RaceManager : MonoBehaviour
     public CarController carController;
     public PointFollow carFollow;
 
+    public GameObject lapTeleporter;
+
     [Min(0)]
     public int countdownTime;
 
@@ -126,6 +128,11 @@ public class RaceManager : MonoBehaviour
 
     private void OnWin()
     {
+        if(lapTeleporter != null)
+        {
+            lapTeleporter.SetActive(false);
+        }
+
         m_state = RaceState.Ended;
         carFollow.enabled = true;
         carController.enabled = false;

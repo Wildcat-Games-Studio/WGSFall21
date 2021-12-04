@@ -13,10 +13,10 @@ public class PointFollow : MonoBehaviour
     public float turnSlerp;
     public float veloLerp;
 
-    public Transform pointHolder;
+    //public Transform pointHolder;
+    //public bool subdiv;
     public List<Transform> points;
 
-    public bool subdiv;
 
     private int m_currentPoint = 0;
 
@@ -89,73 +89,71 @@ public class PointFollow : MonoBehaviour
         return (v + r) % points.Count;
     }
 
-    private Vector3 Bezier(Vector3 v0, Vector3 v1, Vector3 v2, float t)
-    {
-        t = Mathf.Clamp01(t);
+    //private Vector3 Bezier(Vector3 v0, Vector3 v1, Vector3 v2, float t)
+    //{
+    //    t = Mathf.Clamp01(t);
 
-        float omt = 1 - t;
+    //    float omt = 1 - t;
 
-        return omt * omt * v0 + 2 * omt * t * v1 + t * t * v2;
-    }
+    //    return omt * omt * v0 + 2 * omt * t * v1 + t * t * v2;
+    //}
 
-    private void OnDrawGizmosSelected()
-    {
-        if (points == null) return;
+    //private void OnDrawGizmosSelected()
+    //{
+    //    if (points == null) return;
 
-        List<Vector3> subdivPoints = new List<Vector3>();
+    //    List<Vector3> subdivPoints = new List<Vector3>();
 
-        for(int i = 0; i < points.Count; i++)
-        {
-            Vector3 v0 = points[i].position;
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(v0, distError);
+    //    for (int i = 0; i < points.Count; i++)
+    //    {
+    //        Vector3 v0 = points[i].position;
+    //        Gizmos.color = Color.white;
+    //        Gizmos.DrawSphere(v0, distError);
 
-            subdivPoints.Add(v0);
+    //        subdivPoints.Add(v0);
 
-            if (points.Count % 2 == 0 && points.Count > 3 && subdiv)
-            {
-                Vector3 v1 = points[WrappingAdd(i, 1)].position;
-                Vector3 v2 = points[WrappingAdd(i, 2)].position;
-                Gizmos.color = Color.green;
+    //        if (points.Count % 2 == 0 && points.Count > 3 && subdiv)
+    //        {
+    //            Vector3 v1 = points[WrappingAdd(i, 1)].position;
+    //            Vector3 v2 = points[WrappingAdd(i, 2)].position;
+    //            Gizmos.color = Color.green;
 
-                for(float f = 0.1f; f < 1.0; f += 0.1f)
-                {
-                    Vector3 p = Bezier(v0, v1, v2, f);
-                    subdivPoints.Add(p);
-                    Gizmos.DrawSphere(p, distError);
-                }
+    //            for (float f = 0.2f; f < 1.0; f += 0.2f)
+    //            {
+    //                Vector3 p = Bezier(v0, v1, v2, f);
+    //                subdivPoints.Add(p);
+    //                Gizmos.DrawSphere(p, distError);
+    //            }
 
-                i += 1;
-            }
+    //            i += 1;
+    //        }
 
-        }
+    //    }
 
-        if(pointHolder != null)
-        {
-            points.Clear();
+    //    if (pointHolder != null)
+    //    {
+    //        points.Clear();
 
-            foreach (Transform t in pointHolder)
-            {
-                DestroyImmediate(t.gameObject);
-            }
+    //        foreach (Transform t in pointHolder)
+    //        {
+    //            DestroyImmediate(t.gameObject);
+    //        }
 
-            int i = 0;
-            foreach(Vector3 v in subdivPoints)
-            {
-                GameObject go = new GameObject();
-                go.name = string.Format("Point ({0})", i);
-                go.transform.position = v;
-                go.transform.SetParent(pointHolder);
+    //        int i = 0;
+    //        foreach (Vector3 v in subdivPoints)
+    //        {
+    //            GameObject go = new GameObject();
+    //            go.name = string.Format("Point ({0})", i);
+    //            go.transform.position = v;
+    //            go.transform.SetParent(pointHolder);
 
-                points.Add(go.transform);
+    //            points.Add(go.transform);
 
-                i++;
-            }
+    //            i++;
+    //        }
 
-            Debug.Log("Points have been calculated and put into point holder");
-            pointHolder = null;
-        }
-
-
-    }
+    //        Debug.Log("Points have been calculated and put into point holder");
+    //        pointHolder = null;
+    //    }
+    //}
 }
