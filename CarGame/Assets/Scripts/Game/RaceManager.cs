@@ -13,6 +13,9 @@ public class RaceManager : MonoBehaviour
 
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI countdownText;
+    public Animator countdownAnimator;
+
+    public GameObject optionsPanel;
 
     public GameObject endPanel;
     public TextMeshProUGUI endTimeText;
@@ -54,6 +57,21 @@ public class RaceManager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (optionsPanel.activeSelf)
+            {
+                optionsPanel.SetActive(false);
+                unpauseGame();
+            }
+            else
+            {
+                optionsPanel.SetActive(true);
+                pauseGame();
+                return;
+            }
+        }
+
         m_seconds += Time.deltaTime;
 
         switch (m_state)
@@ -100,6 +118,18 @@ public class RaceManager : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void pauseGame()
+    {
+        Time.timeScale = 0;
+        countdownAnimator.speed = 0;
+    }
+
+    private void unpauseGame()
+    {
+        Time.timeScale = 1;
+        countdownAnimator.speed = 1;
     }
 
     void UpdateCountDown(int value)

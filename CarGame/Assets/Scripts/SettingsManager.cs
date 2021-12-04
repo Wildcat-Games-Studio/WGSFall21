@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -76,10 +77,6 @@ public class SettingsManager : MonoBehaviour
     {
         //saves the settings to a file
         SaveSettings();
-    }
-    public void OnExitGame()
-    {
-        Application.Quit();
     }
     // saves the game settings as a JSON to the Application persistent Data Path
     public void SaveSettings()

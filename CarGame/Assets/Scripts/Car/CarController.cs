@@ -22,6 +22,9 @@ public class CarController: MonoBehaviour
 
     private Vector3 m_startPos;
 
+    public void Pause(bool pause)
+    {
+    }
     private void Start()
     {
         m_startPos = transform.position;
