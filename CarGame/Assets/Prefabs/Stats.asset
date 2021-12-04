@@ -23,9 +23,13 @@ MonoBehaviour:
   wheelCorrectionDriftAccel: 15
   turnCorrectionAccel: 50
   minTurnSpeed: 1
-  targetDistFromGround: 0.5
+  targetDistFromGround: 0.6
   invDampingCoefficient: 0.9
   springCoefficient: 100
+  castRadius: 0.35
+  castMask:
+    serializedVersion: 2
+    m_Bits: 1
   groundDrag: 0.25
   groundAngularDrag: 3
   centerOfMass: {x: 0, y: 0, z: 0}

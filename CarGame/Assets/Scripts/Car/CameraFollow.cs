@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
     public float followSpeed;
 
     public float pitch;
+    public float yaw;
     public float distance;
     public Vector3 up = Vector3.up;
 
@@ -22,7 +23,7 @@ public class CameraFollow : MonoBehaviour
         Vector3 targetDir = Vector3.ProjectOnPlane(target.forward, up).normalized;
 
         // create rotation
-        Quaternion rotation = Quaternion.LookRotation(targetDir, up);
+        Quaternion rotation = Quaternion.AngleAxis(yaw, up) * Quaternion.LookRotation(targetDir, up);
         rotation = Quaternion.AngleAxis(pitch, rotation * Vector3.right) * rotation;
         Vector3 fromTarget = rotation * Vector3.forward;
 

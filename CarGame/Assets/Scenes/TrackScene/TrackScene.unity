@@ -2303,6 +2303,10 @@ PrefabInstance:
       propertyPath: pitch
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 7797084297023166543, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
+      propertyPath: yaw
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d1cba21a28bffb4c82ca256bf7540e8, type: 3}
 --- !u!1 &1721456027

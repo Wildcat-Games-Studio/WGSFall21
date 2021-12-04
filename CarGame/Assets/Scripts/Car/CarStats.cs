@@ -27,6 +27,9 @@ public class CarStats : ScriptableObject
     public float invDampingCoefficient = 0.9f;
     public float springCoefficient = 100.0f;
 
+    public float castRadius = 0.25f;
+    public LayerMask castMask;
+
     public float groundDrag = 0.25f;
     public float groundAngularDrag = 1.3f;
 
