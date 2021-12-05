@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeaLlightControls : MonoBehaviour
+public class HeadLightControls : MonoBehaviour
 {
 
     private Light headLight;
