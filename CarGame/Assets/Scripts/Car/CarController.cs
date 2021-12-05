@@ -69,9 +69,10 @@ public class CarController: MonoBehaviour
     private void FixedUpdate()
     {
         CheckGrounding(suspension.WheelsOnGround > 0);
-        if (flipping)// && Vector3.Dot(transform.up, Vector3.down) > 0.0f) //TODO: Check on the ground
+        if (flipping && suspension.WheelsOnGround == 0)
         {
-            body.AddForceAtPosition(Vector3.up * stats.flipForce, transform.TransformPoint(body.centerOfMass + Vector3.right));
+            body.AddTorque(transform.forward * stats.flipForce);
+            //body.AddForceAtPosition(Vector3.up * stats.flipForce, transform.TransformPoint(body.centerOfMass + Vector3.right));
         }
 
         if (suspension.WheelsOnGround == 0) return;

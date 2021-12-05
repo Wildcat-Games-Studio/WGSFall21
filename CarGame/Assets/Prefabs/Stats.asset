@@ -34,7 +34,7 @@ MonoBehaviour:
   groundAngularDrag: 3
   centerOfMass: {x: 0, y: 0, z: 0}
   movementOrigin: {x: 0, y: 0, z: 0}
-  flipForce: 100
+  flipForce: 50
   suspensionPoints:
   - {x: -1, y: 0.5, z: 1.5}
   - {x: 1, y: 0.5, z: 1.5}

@@ -130,8 +130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c749357ef74684d8dcbd65159b8b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 5307495279140014406}
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 1
+  target: {fileID: 7641922362927776141}
   followSpeed: 24
+  trackSpeed: 20
   pitch: 30
   yaw: 0
   distance: 6
@@ -527,5 +531,10 @@ PrefabInstance:
 --- !u!4 &5307495279140014406 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4060595848839690517, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
+  m_PrefabInstance: {fileID: 8210661075674722387}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7641922362927776141 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2017523957319299550, guid: 511d76b870051e547a5b28ef16d069f8, type: 3}
   m_PrefabInstance: {fileID: 8210661075674722387}
   m_PrefabAsset: {fileID: 0}
