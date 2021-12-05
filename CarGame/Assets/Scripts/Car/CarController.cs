@@ -13,6 +13,7 @@ public class CarController: MonoBehaviour
     public CarStats stats;
     public CheckPointManager checkPointManager;
     public CarSuspension suspension;
+    public CarSoundManager soundManager;
 
     private Rigidbody body;
 
@@ -81,6 +82,8 @@ public class CarController: MonoBehaviour
         Vector3 forwardDir = Vector3.ProjectOnPlane(transform.forward, suspension.GroundNormal).normalized;
         float relativeSpeed = Vector3.Dot(body.velocity, forwardDir);
         float relativeDir = Mathf.Sign(relativeSpeed);
+
+        soundManager.setWindVolume(Mathf.Abs(relativeSpeed));
 
         Vector2 inputRaw = new Vector2(Mathf.Sign(inputMovement.x), Mathf.Sign(inputMovement.y));
 

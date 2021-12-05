@@ -124,12 +124,17 @@ public class RaceManager : MonoBehaviour
     {
         Time.timeScale = 0;
         countdownAnimator.speed = 0;
+        carController.soundManager.windSource.Pause();
+        carController.soundManager.engineSource.Pause();
     }
 
     private void unpauseGame()
     {
         Time.timeScale = 1;
         countdownAnimator.speed = 1;
+
+        carController.soundManager.windSource.UnPause();
+        carController.soundManager.engineSource.UnPause();
     }
 
     void UpdateCountDown(int value)
@@ -166,6 +171,8 @@ public class RaceManager : MonoBehaviour
         m_state = RaceState.Ended;
         carFollow.enabled = true;
         carController.enabled = false;
+
+        carController.soundManager.setWindVolume(carFollow.speed);
 
         timerText.text = string.Empty;
         endTimeText.text = FormatSecondsToTime(m_seconds);
